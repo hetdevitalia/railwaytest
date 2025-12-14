@@ -1,0 +1,60 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3️⃣ Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 4️⃣ Run tests
+      - name: Run tests
+        run: npm test
+
+      # 5️⃣ Log in to GitHub Container Registry
+      - name: Log in to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      # 6️⃣ Build Docker image
+      - name: Build Docker image
+        run: docker build -t ghcr.io/${{ github.repository }}/node-docker-sample:latest .
+
+      # 7️⃣ Push Docker image to GHCR
+      - name: Push Docker image
+        run: docker push ghcr.io/${{ github.repository }}/node-docker-sample:latest
+
+      # 8️⃣ Install Railway CLI
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          export PATH=$HOME/.railway/bin:$PATH
+
+      # 9️⃣ Log in to Railway CLI
+      - name: Railway login
+        run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
+
+      # 🔟 Deploy to Railway
+      - name: Deploy Docker image on Railway
+        run: |
+          railway up --detach --service-id ${{ secrets.RAILWAY_SERVICE_ID }}
