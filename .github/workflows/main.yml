@@ -58,12 +58,12 @@ jobs:
 
       # 9️⃣ Log in to Railway CLI
       #- name: Railway login
-      #  run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
+      #  run: railway login --ci ${{ secrets.RAILWAY_TOKEN_WS }}
 
       # Link Railway Project
       - name: Link Railway project
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_WS }}
         run: |
           echo "Token set? ${RAILWAY_TOKEN:+yes}"
           railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
@@ -73,7 +73,7 @@ jobs:
       # Deploy to Railway
       - name: Deploy to Railway
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_WS }}
         run: |
           echo "Token set? ${RAILWAY_TOKEN:+yes}"
           railway up --detach
@@ -82,7 +82,7 @@ jobs:
       #- name: Deploy to Railway
       #  run: railway up --detach
       #  env:
-      #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_WS }}
       #    RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
       #- name: Deploy to Railway
       #  run: |
