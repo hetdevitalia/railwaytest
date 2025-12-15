@@ -9,6 +9,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write   # REQUIRED for pushing to GHCR
+
     steps:
       # 1️⃣ Checkout code
       - name: Checkout repository
@@ -16,7 +20,7 @@ jobs:
 
       # 2️⃣ Setup Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -24,13 +28,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Run tests
+      # 4️⃣ Run tests (dummy test script is OK for assignment)
       - name: Run tests
         run: npm test
 
       # 5️⃣ Log in to GitHub Container Registry
-      - name: Log in to GHCR
-        uses: docker/login-action@v2
+      - name: Login to GHCR
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -38,21 +42,28 @@ jobs:
 
       # 6️⃣ Build Docker image
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ github.repository }}/node-docker-sample:latest .
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.repository }}/node-docker-sample:latest .
 
       # 7️⃣ Push Docker image to GHCR
       - name: Push Docker image
-        run: docker push ghcr.io/${{ github.repository }}/node-docker-sample:latest
+        run: |
+          docker push ghcr.io/${{ github.repository }}/node-docker-sample:latest
 
       # 8️⃣ Install Railway CLI
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      # 9️⃣ Log in to Railway CLI
-      - name: Railway login
-        run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
+      # 9️⃣ Authenticate Railway CLI (CI-safe)
+      - name: Railway Auth
+        run: railway login
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
-      # 🔟 Deploy to Railway
-      - name: Deploy Docker image on Railway
+      # 🔟 Deploy to Railway (existing empty service)
+      - name: Deploy to Railway
         run: |
-          railway up --detach --service-id ${{ secrets.RAILWAY_SERVICE_ID }}
+          railway up \
+            --service-id ${{ secrets.RAILWAY_SERVICE_ID }} \
+            --detach
