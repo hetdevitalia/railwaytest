@@ -62,7 +62,7 @@ jobs:
 
       # 9️⃣ Log in to Railway CLI
       - name: Railway login
-        run: railway login --token $RAILWAY_TOKEN
+        run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
 
         
     
