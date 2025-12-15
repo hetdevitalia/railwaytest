@@ -57,9 +57,10 @@ jobs:
 
       # 9️⃣ Authenticate Railway CLI (CI-safe)
       - name: Railway Auth
-        run: railway whoami
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway whoami
+        
 
     
       # Link Railway Project
