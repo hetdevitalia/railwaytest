@@ -9,11 +9,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      #RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
       RAILWAY_PROJECT_TOKEN_D: ${{ secrets.RAILWAY_PROJECT_TOKEN_D }}
       #RAILWAY_PROJECT_TOKEN_P: ${{ secrets.RAILWAY_PROJECT_TOKEN_P }}
-      RAILWAY_PROJECT_TOKEN_P_SVCID: ${{ secrets.RAILWAY_PROJECT_TOKEN_P_SVCID }}
+      #RAILWAY_PROJECT_TOKEN_P_SVCID: ${{ secrets.RAILWAY_PROJECT_TOKEN_P_SVCID }}
 
     permissions:
       contents: read
@@ -70,6 +70,7 @@ jobs:
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_PROJECT_TOKEN_P_SVCID: ${{ secrets.RAILWAY_PROJECT_TOKEN_P_SVCID }}
         run: |
           railway up --service $RAILWAY_PROJECT_TOKEN_P_SVCID --detach
           
