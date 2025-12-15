@@ -11,7 +11,7 @@ jobs:
     env:
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
       RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-      RAILWAY_CLI_AUTH: ${{ secrets.RAILWAY_CLI_AUTH }}
+      RAILWAY_PROJECT_TOKEN_D: ${{ secrets.RAILWAY_PROJECT_TOKEN_D }}
 
     permissions:
       contents: read
@@ -61,10 +61,10 @@ jobs:
         run: npm install -g @railway/cli
 
       # 9️⃣ Restore Railway CLI Auth
-      - name: Restore Railway CLI Auth
-        run: |
-          mkdir -p ~/.config/railway
-          echo $RAILWAY_CLI_AUTH |base64 -d > ~/.config/railway/config.json
+      #- name: Restore Railway CLI Auth
+      #  run: |
+      #    mkdir -p ~/.config/railway
+      #    echo $RAILWAY_CLI_AUTH |base64 -d > ~/.config/railway/config.json
 
         
     
