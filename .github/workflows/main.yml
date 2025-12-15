@@ -60,22 +60,20 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      # 9️⃣ Restore Railway CLI Auth
-      #- name: Restore Railway CLI Auth
-      #  run: |
-      #    mkdir -p ~/.config/railway
-      #    echo $RAILWAY_CLI_AUTH |base64 -d > ~/.config/railway/config.json
+      # 9️⃣ Log in to Railway CLI
+      - name: Railway login
+        run: railway login --token $RAILWAY_TOKEN
 
         
     
       # Link Railway Project
-      - name: Link Railway project
-        run: railway link -p 95ce78e0-f2e7-4053-b9ce-1870b5273fc8
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-          RAILWAY_PROJECT_TOKEN_D: ${{ secrets.RAILWAY_PROJECT_TOKEN_D }}
-          RAILWAY_PROJECT_TOKEN_P: ${{ secrets.RAILWAY_PROJECT_TOKEN_P }}
+      #- name: Link Railway project
+      #  run: railway link -p 95ce78e0-f2e7-4053-b9ce-1870b5273fc8
+      #  env:
+      #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      #    RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+      #    RAILWAY_PROJECT_TOKEN_D: ${{ secrets.RAILWAY_PROJECT_TOKEN_D }}
+      #    RAILWAY_PROJECT_TOKEN_P: ${{ secrets.RAILWAY_PROJECT_TOKEN_P }}
         
       # 🔟 Deploy to Railway (existing empty service)
       #- name: Deploy to Railway
