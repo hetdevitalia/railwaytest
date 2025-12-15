@@ -70,9 +70,8 @@ jobs:
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_TOKEN_P_SVCID: ${{ secrets.RAILWAY_PROJECT_TOKEN_P_SVCID }}
         run: |
-          railway up --service $RAILWAY_PROJECT_TOKEN_P_SVCID --detach
+          railway up --detach
           
     
       # Link Railway Project
