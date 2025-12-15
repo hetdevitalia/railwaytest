@@ -61,6 +61,12 @@ jobs:
       #  env:
       #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
+      # Link Railway Project
+      - name: Link Railway project
+        run: railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          
       # 🔟 Deploy to Railway (existing empty service)
       - name: Deploy to Railway
         run: railway up --detach
