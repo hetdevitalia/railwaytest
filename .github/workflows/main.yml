@@ -66,7 +66,7 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           echo "Token set? ${RAILWAY_TOKEN:+yes}"
-          railway link -p ${{ secrets.RAILWAY_PROJECT_ID }}
+          railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
         
 
       
