@@ -61,11 +61,13 @@ jobs:
       #  run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
       
 
+      
       # Deploy to Railway
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
+          echo "Token set? ${RAILWAY_TOKEN:+yes}"
           railway up --detach
         
       # 🔟 Deploy to Railway (existing empty service)
