@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
 
     permissions:
       contents: read
@@ -59,20 +60,15 @@ jobs:
         run: npm install -g @railway/cli
 
       # 9️⃣ Authenticate Railway CLI (CI-safe)
-      - name: Debug Railway Env
-        run: |
-          echo "Token set? ${RAILWAY_TOKEN:+yes}"
-          railway whoami
+      - name: Debug Railway access
+        run: railway projects
 
         
-
     
       # Link Railway Project
-      #- name: Link Railway project
-      #  run: railway link -p ${{ secrets.RAILWAY_PROJECT_ID }}
-      #  env:
-      #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
+      - name: Link Railway project
+        run: railway link -p $RAILWAY_PROJECT_ID
+        
       # 🔟 Deploy to Railway (existing empty service)
       #- name: Deploy to Railway
       #  run: railway up --detach
