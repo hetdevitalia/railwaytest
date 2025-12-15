@@ -61,7 +61,7 @@ jobs:
       # 9️⃣ Authenticate Railway CLI (CI-safe)
       - name: Debug Railway Env
         run: |
-          echo "Token set? ${GHCR_TOKEN:+yes}"
+          echo "Token set? ${RAILWAY_TOKEN:+yes}"
           railway whoami
 
         
