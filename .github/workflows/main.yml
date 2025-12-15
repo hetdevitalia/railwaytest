@@ -60,8 +60,8 @@ jobs:
         run: npm install -g @railway/cli
 
       # 9️⃣ Authenticate Railway CLI (CI-safe)
-      - name: Debug Railway access
-        run: railway projects
+      #- name: Debug Railway access
+      #  run: railway projects
 
         
     
