@@ -60,6 +60,14 @@ jobs:
       #- name: Railway login
       #  run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
       
+      # Link Railway Project
+      - name: Link Railway project
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "Token set? ${RAILWAY_TOKEN:+yes}"
+          railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+        
 
       
       # Deploy to Railway
