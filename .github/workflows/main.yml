@@ -8,12 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    #env:
-      #RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      #RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-      #RAILWAY_PROJECT_TOKEN_D: ${{ secrets.RAILWAY_PROJECT_TOKEN_D }}
-      #RAILWAY_PROJECT_TOKEN_P: ${{ secrets.RAILWAY_PROJECT_TOKEN_P }}
-      #RAILWAY_PROJECT_TOKEN_P_SVCID: ${{ secrets.RAILWAY_PROJECT_TOKEN_P_SVCID }}
 
     permissions:
       contents: read
@@ -65,17 +59,7 @@ jobs:
       # 9️⃣ Log in to Railway CLI
       #- name: Railway login
       #  run: railway login --ci ${{ secrets.RAILWAY_TOKEN }}
-          
-    
-      # Link Railway Project
-      #- name: Link Railway project
-      #  run: railway link -p 95ce78e0-f2e7-4053-b9ce-1870b5273fc8
-      #  env:
-      #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-      #    RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-      #    RAILWAY_PROJECT_TOKEN_D: ${{ secrets.RAILWAY_PROJECT_TOKEN_D }}
-      #    RAILWAY_PROJECT_TOKEN_P: ${{ secrets.RAILWAY_PROJECT_TOKEN_P }}
-      #    RAILWAY_PROJECT_TOKEN_P_SVCID: ${{ secrets.RAILWAY_PROJECT_TOKEN_P_SVCID }}
+      
 
       # Deploy to Railway
       - name: Deploy to Railway
