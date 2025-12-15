@@ -56,10 +56,11 @@ jobs:
         run: npm install -g @railway/cli
 
       # 9️⃣ Authenticate Railway CLI (CI-safe)
-      - name: Railway Auth
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway whoami
+      - name: Debug Railway Env
+        run: |
+          echo "Token set? ${RAILWAY_TOKEN:+yes}"
+          railway whoami
+
         
 
     
