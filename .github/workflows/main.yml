@@ -56,26 +56,24 @@ jobs:
         run: npm install -g @railway/cli
 
       # 9️⃣ Authenticate Railway CLI (CI-safe)
-      #- name: Railway Auth
-      # run: railway login --browserless
+      - name: Railway Auth
+        run: railway whoami
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+    
+      # Link Railway Project
+      #- name: Link Railway project
+      #  run: railway link -p ${{ secrets.RAILWAY_PROJECT_ID }}
       #  env:
       #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
-      # Authenticate
-      - name: Authenticate
-        run: railway login --token ${{ secrets.RAILWAY_TOKEN}}
-      # Link Railway Project
-      - name: Link Railway project
-        run: railway link -p ${{ secrets.RAILWAY_PROJECT_ID }}
-        #env:
-        #  RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
       # 🔟 Deploy to Railway (existing empty service)
-      - name: Deploy to Railway
-        run: railway up --detach
-        #env:
-        #  RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        #  RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+      #- name: Deploy to Railway
+      #  run: railway up --detach
+      #  env:
+      #    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      #    RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
       #- name: Deploy to Railway
       #  run: |
       #    railway up \
